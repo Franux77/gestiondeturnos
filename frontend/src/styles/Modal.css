@@ -1,0 +1,418 @@
+/* ================================
+   MODAL OVERLAY - CLASES ÚNICAS
+   ================================ */
+
+.confirmacion-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: confirmacionFadeIn 0.3s ease-out;
+}
+
+@keyframes confirmacionFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================================
+   MODAL CONTENT
+   ================================ */
+
+.confirmacion-modal-content {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  animation: confirmacionSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes confirmacionSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================================
+   CONFETTI ANIMATION
+   ================================ */
+
+.confirmacion-confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.confirmacion-confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  top: -10%;
+  opacity: 0;
+  animation: confirmacionConfettiFall 3s ease-out forwards;
+}
+
+.confirmacion-confetti-piece:nth-child(odd) {
+  background: var(--accent);
+}
+
+.confirmacion-confetti-piece:nth-child(3n) {
+  background: var(--primary-light);
+}
+
+@keyframes confirmacionConfettiFall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+/* ================================
+   BOTÓN CERRAR
+   ================================ */
+
+.confirmacion-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.confirmacion-modal-close:hover {
+  background: var(--error);
+  border-color: var(--error);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.confirmacion-modal-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ================================
+   ICONO DE ÉXITO
+   ================================ */
+
+.confirmacion-success-icon {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.confirmacion-success-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(132, 204, 22, 0.4);
+  animation: confirmacionSuccessPop 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confirmacion-success-circle svg {
+  width: 50px;
+  height: 50px;
+  color: white;
+  stroke-width: 3;
+}
+
+@keyframes confirmacionSuccessPop {
+  0% {
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ================================
+   BODY DEL MODAL
+   ================================ */
+
+.confirmacion-modal-body {
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.confirmacion-modal-title {
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.confirmacion-modal-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ================================
+   DETALLES DEL TURNO
+   ================================ */
+
+.confirmacion-turno-detalles {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.confirmacion-detalle-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.confirmacion-detalle-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.confirmacion-detalle-icon svg {
+  width: 22px;
+  height: 22px;
+  color: white;
+}
+
+.confirmacion-detalle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.confirmacion-detalle-label {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.confirmacion-detalle-valor {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ================================
+   RECORDATORIOS
+   ================================ */
+
+.confirmacion-recordatorios {
+  background: rgba(132, 204, 22, 0.1);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.confirmacion-recordatorios-titulo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.confirmacion-recordatorios-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.confirmacion-recordatorios-lista li {
+  position: relative;
+  padding-left: 1.75rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.confirmacion-recordatorios-lista li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* ================================
+   ACCIONES DEL MODAL
+   ================================ */
+
+.confirmacion-modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.confirmacion-btn-primary,
+.confirmacion-btn-secondary {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.confirmacion-btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+}
+
+.confirmacion-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(132, 204, 22, 0.4);
+}
+
+.confirmacion-btn-secondary {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+}
+
+.confirmacion-btn-secondary:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--primary);
+}
+
+.confirmacion-btn-secondary svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+  .confirmacion-modal-content {
+    max-height: 95vh;
+  }
+
+  .confirmacion-modal-body {
+    padding: 1.5rem;
+  }
+
+  .confirmacion-modal-title {
+    font-size: 1.5rem;
+  }
+
+  .confirmacion-modal-actions {
+    flex-direction: column;
+  }
+
+  .confirmacion-success-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .confirmacion-success-circle svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ================================
+   SCROLL SUAVE
+   ================================ */
+
+.confirmacion-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.confirmacion-modal-content::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.confirmacion-modal-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.confirmacion-modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}

@@ -1,0 +1,566 @@
+/* ============================================
+   HORARIOS SEMANALES - ESTILOS
+   ============================================ */
+
+.horarios-semanales-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 15px 5px;
+}
+
+/* Header */
+.horarios-header {
+  margin-bottom: 30px;
+}
+
+.horarios-header-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.horarios-icono {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.horarios-icono svg {
+  width: 32px;
+  height: 32px;
+}
+
+.horarios-header-info h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.horarios-header-info p {
+  margin: 5px 0 0 0;
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* Selector de profesional */
+.horarios-selector {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+}
+
+.horarios-selector label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.horarios-selector select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 15px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.horarios-selector select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Pestañas de días */
+.horarios-dias-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding: 5px 0;
+}
+
+.dia-tab {
+  flex: 0 0 auto;
+  min-width: 100px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.dia-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dia-tab.activo {
+  background: var(--color-dia);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dia-tab-nombre {
+  font-size: 14px;
+}
+
+.dia-tab-count {
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* Contenido principal */
+.horarios-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 25px;
+}
+
+@media (max-width: 1024px) {
+  .horarios-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panel principal */
+.horarios-panel-principal {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.horarios-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.horarios-panel-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.horarios-count {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Agregar horario */
+.horarios-agregar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.horarios-agregar input {
+  flex: 1;
+  padding: 14px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.horarios-agregar input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.btn-agregar {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-agregar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-agregar svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Lista de horarios */
+.horarios-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.horarios-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+}
+
+.horarios-empty svg {
+  width: 64px;
+  height: 64px;
+  opacity: 0.3;
+  margin-bottom: 15px;
+}
+
+.horarios-empty p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.horarios-empty small {
+  font-size: 14px;
+}
+
+.horario-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.horario-item:hover {
+  border-color: #cbd5e1;
+  transform: translateX(4px);
+}
+
+.horario-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.horario-info svg {
+  width: 22px;
+  height: 22px;
+  color: #667eea;
+}
+
+.horario-hora {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.btn-eliminar {
+  padding: 10px;
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.btn-eliminar:hover {
+  background: #fee2e2;
+}
+
+.btn-eliminar svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Panel lateral */
+.horarios-panel-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.horarios-info-box {
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.horarios-info-box.info {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.horarios-info-box.warning {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.horarios-info-box svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.horarios-info-box strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.horarios-info-box p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Acciones */
+.horarios-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-accion {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+
+.btn-accion:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-accion.copiar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.btn-accion.copiar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-accion.limpiar {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 2px solid #fecaca;
+}
+
+.btn-accion.limpiar:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.btn-accion svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Modal copiar */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-copiar {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.modal-header button {
+  padding: 8px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+  transition: background 0.2s;
+}
+
+.modal-header button:hover {
+  background: #e2e8f0;
+}
+
+.modal-header button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.modal-descripcion {
+  margin: 0 0 25px 0;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.modal-dias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.modal-dia-btn {
+  padding: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-dia-btn:hover {
+  border-color: var(--color-dia);
+  transform: translateY(-2px);
+}
+
+.modal-dia-btn.seleccionado {
+  background: var(--color-dia);
+  color: white;
+  border-color: var(--color-dia);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-dia-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modal-acciones {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-cancelar,
+.btn-confirmar {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancelar {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-cancelar:hover {
+  background: #e2e8f0;
+}
+
+.btn-confirmar {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.btn-confirmar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.spinner-grande {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

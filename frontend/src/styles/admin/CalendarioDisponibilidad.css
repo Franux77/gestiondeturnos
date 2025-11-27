@@ -1,0 +1,1787 @@
+/* ========================================
+   CALENDARIO DE DISPONIBILIDAD - ESTILOS
+   ======================================== */
+
+/* Contenedor principal */
+.cal-disp-container {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+/* Header del calendario */
+.cal-disp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.cal-disp-header-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cal-disp-icono {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.cal-disp-icono svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cal-disp-header-info h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--text-primary);
+}
+
+.cal-disp-header-info p {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.cal-disp-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cal-disp-selector label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cal-disp-select {
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+
+.cal-disp-select:hover {
+  border-color: var(--primary);
+}
+
+.cal-disp-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Leyenda */
+.cal-disp-leyenda {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cal-disp-leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.cal-disp-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.cal-disp-dot.default {
+  background: var(--border);
+}
+
+.cal-disp-dot.personalizado {
+  background: var(--primary);
+}
+
+.cal-disp-dot.con-turnos {
+  background: var(--success);
+}
+
+.cal-disp-dot.pasado {
+  background: var(--text-disabled);
+}
+
+/* Calendario */
+.cal-disp-calendario {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.cal-disp-calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cal-disp-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-disp-nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.cal-disp-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cal-disp-mes-titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Días de la semana */
+.cal-disp-dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cal-disp-dia-semana-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  padding: 0.5rem;
+}
+
+/* Grid de días */
+.cal-disp-dias-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.cal-disp-dia {
+  aspect-ratio: 1;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.cal-disp-dia:hover:not(.pasado) {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cal-disp-dia.otro-mes {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-disp-dia.otro-mes:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+.cal-disp-dia.hoy {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.cal-disp-dia.pasado {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--bg-disabled);
+}
+
+.cal-disp-dia.con-cambios {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05));
+}
+
+.cal-disp-dia.con-turnos {
+  border-color: var(--success);
+}
+
+.cal-disp-dia.seleccionado {
+  border-color: var(--primary);
+  border-width: 3px;
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.cal-disp-dia-numero {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cal-disp-badge-hoy {
+  font-size: 0.65rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.cal-disp-badge-turnos {
+  font-size: 0.65rem;
+  padding: 0.125rem 0.375rem;
+  background: var(--success);
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.cal-disp-indicador-personalizado {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  color: var(--primary);
+}
+
+.cal-disp-indicador-personalizado svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Loading */
+.cal-disp-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.cal-disp-loading p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.cal-disp-spinner-grande {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   PANEL LATERAL DEL DÍA
+   ======================================== */
+
+.panel-dia-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+.panel-dia-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-xl);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.panel-dia-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--bg-primary);
+}
+
+.panel-dia-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.panel-dia-header p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.panel-dia-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-dia-close:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.panel-dia-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Estado */
+.panel-dia-estado {
+  padding: 1rem 1.5rem;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-dia-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.panel-dia-badge.default {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--text-secondary);
+}
+
+.panel-dia-badge.personalizado {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary);
+}
+
+.panel-dia-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Acciones rápidas */
+.panel-dia-acciones {
+  padding: 1rem 1.5rem;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.panel-dia-btn {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.panel-dia-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.panel-dia-btn.agregar:hover {
+  background: var(--success);
+  color: white;
+  border-color: var(--success);
+}
+
+.panel-dia-btn.copiar:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.panel-dia-btn.restaurar:hover {
+  background: var(--warning);
+  color: white;
+  border-color: var(--warning);
+}
+
+/* Lista de horarios */
+.panel-dia-horarios {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
+.panel-dia-loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.panel-dia-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.panel-dia-horario-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s;
+}
+
+.panel-dia-horario-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-dia-horario-item.reservado {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: var(--success);
+}
+
+.panel-dia-horario-item.desactivado {
+  opacity: 0.6;
+}
+
+.panel-dia-horario-check {
+  flex-shrink: 0;
+}
+
+.panel-dia-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-dia-checkbox:hover {
+  border-color: var(--primary);
+}
+
+.panel-dia-checkbox.checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.panel-dia-checkbox svg {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.panel-dia-lock {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--success);
+}
+
+.panel-dia-lock svg {
+  width: 18px;
+  height: 18px;
+}
+
+.panel-dia-horario-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.panel-dia-horario-hora {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panel-dia-horario-estado {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.panel-dia-horario-estado.reservado {
+  color: var(--success);
+  font-weight: 500;
+}
+
+.panel-dia-horario-estado.desactivado {
+  color: var(--text-disabled);
+}
+
+.panel-dia-horario-acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.panel-dia-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.panel-dia-icon-btn:hover {
+  transform: scale(1.05);
+}
+
+.panel-dia-icon-btn.editar:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.panel-dia-icon-btn.eliminar:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.panel-dia-icon-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ========================================
+   MODAL EDITAR HORARIO
+   ======================================== */
+
+.modal-editar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  animation: fadeIn 0.2s;
+}
+
+.modal-editar {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.3s;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-editar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-editar-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.modal-editar-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+}
+
+.modal-editar-close:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.modal-editar-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-editar-form {
+  padding: 1.5rem;
+}
+
+.modal-editar-field {
+  margin-bottom: 1.5rem;
+}
+
+.modal-editar-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.modal-editar-hora-actual {
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+}
+
+.modal-editar-field input[type="time"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.modal-editar-field input[type="time"]:hover {
+  border-color: var(--primary);
+}
+
+.modal-editar-field input[type="time"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.modal-editar-field input.error {
+  border-color: var(--danger);
+}
+
+.modal-editar-error {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+
+.modal-editar-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.modal-editar-btn-cancel,
+.modal-editar-btn-save {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-editar-btn-cancel {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.modal-editar-btn-cancel:hover:not(:disabled) {
+  background: var(--bg-hover);
+}
+
+.modal-editar-btn-save {
+  background: var(--primary);
+  color: white;
+}
+
+.modal-editar-btn-save:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-editar-btn-save:disabled,
+.modal-editar-btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-editar-btn-save svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-editar-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ========================================
+   MODAL AGREGAR MÚLTIPLES
+   ======================================== */
+
+.modal-agregar-mult-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  animation: fadeIn 0.2s;
+}
+
+.modal-agregar-mult {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.3s;
+}
+
+.modal-agregar-mult-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 10;
+}
+
+.modal-agregar-mult-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.modal-agregar-mult-header p {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.modal-agregar-mult-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.modal-agregar-mult-close:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.modal-agregar-mult-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-agregar-mult-form {
+  padding: 1.5rem;
+}
+
+.modal-agregar-mult-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modal-agregar-mult-field {
+  margin-bottom: 1rem;
+}
+
+.modal-agregar-mult-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.modal-agregar-mult-field input[type="time"],
+.modal-agregar-mult-field select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.modal-agregar-mult-field input[type="time"]:hover,
+.modal-agregar-mult-field select:hover {
+  border-color: var(--primary);
+}
+
+.modal-agregar-mult-field input[type="time"]:focus,
+.modal-agregar-mult-field select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.modal-agregar-mult-error {
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.modal-agregar-mult-preview {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.modal-agregar-mult-preview h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.modal-agregar-mult-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.modal-agregar-mult-hora-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.modal-agregar-mult-hora-item svg {
+  width: 14px;
+  height: 14px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.modal-agregar-mult-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+}
+
+.modal-agregar-mult-btn-cancel,
+.modal-agregar-mult-btn-save {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-agregar-mult-btn-cancel {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.modal-agregar-mult-btn-cancel:hover:not(:disabled) {
+  background: var(--bg-hover);
+}
+
+.modal-agregar-mult-btn-save {
+  background: var(--success);
+  color: white;
+}
+
+.modal-agregar-mult-btn-save:hover:not(:disabled) {
+  background: var(--success-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-agregar-mult-btn-save:disabled,
+.modal-agregar-mult-btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-agregar-mult-btn-save svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-agregar-mult-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ========================================
+   MODAL COPIAR DÍAS
+   ======================================== */
+
+.modal-copiar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  animation: fadeIn 0.2s;
+}
+
+.modal-copiar {
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn 0.3s;
+}
+
+.modal-copiar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 10;
+}
+
+.modal-copiar-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.modal-copiar-header p {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.modal-copiar-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.modal-copiar-close:hover {
+  background: var(--danger);
+  color: white;
+  border-color: var(--danger);
+}
+
+.modal-copiar-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-copiar-form {
+  padding: 0.2rem;
+}
+
+/* Tipo de rango */
+.modal-copiar-tipo {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-copiar-tipo-btn {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.modal-copiar-tipo-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--primary);
+}
+
+.modal-copiar-tipo-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Lista de días */
+.modal-copiar-dias {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.modal-copiar-dias-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary);
+}
+
+.modal-copiar-dias-header span {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.modal-copiar-seleccionar-todos {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.modal-copiar-seleccionar-todos:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.modal-copiar-dias-lista {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.modal-copiar-dia-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-copiar-dia-item:last-child {
+  border-bottom: none;
+}
+
+.modal-copiar-dia-item:hover:not(.con-turnos) {
+  background: var(--bg-hover);
+}
+
+.modal-copiar-dia-item.selected {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.modal-copiar-dia-item.con-turnos {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.modal-copiar-dia-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.modal-copiar-dia-item.con-turnos input[type="checkbox"] {
+  cursor: not-allowed;
+}
+
+.modal-copiar-dia-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modal-copiar-dia-fecha {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.modal-copiar-dia-warning {
+  font-size: 0.8rem;
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.modal-copiar-dia-check {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.modal-copiar-dia-check svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Info */
+.modal-copiar-info {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.modal-copiar-info svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.modal-copiar-info div {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.modal-copiar-info strong {
+  color: var(--text-primary);
+}
+
+/* Progreso */
+.modal-copiar-progreso {
+  margin-bottom: 1rem;
+}
+
+.modal-copiar-progreso-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.modal-copiar-progreso-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  transition: width 0.3s;
+  border-radius: 4px;
+}
+
+.modal-copiar-progreso span {
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Acciones */
+.modal-copiar-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  margin-top: 1.5rem;
+}
+
+.modal-copiar-btn-cancel,
+.modal-copiar-btn-save {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.modal-copiar-btn-cancel {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.modal-copiar-btn-cancel:hover:not(:disabled) {
+  background: var(--bg-hover);
+}
+
+.modal-copiar-btn-save {
+  background: var(--primary);
+  color: white;
+}
+
+.modal-copiar-btn-save:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-copiar-btn-save:disabled,
+.modal-copiar-btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-copiar-btn-save svg {
+  width: 16px;
+  height: 16px;
+}
+
+.modal-copiar-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  .cal-disp-container {
+    padding: 1rem;
+  }
+
+  .cal-disp-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cal-disp-selector {
+    width: 100%;
+  }
+
+  .cal-disp-select {
+    width: 100%;
+  }
+
+  .cal-disp-leyenda {
+    gap: 1rem;
+  }
+
+  .cal-disp-leyenda-item {
+    font-size: 0.8rem;
+  }
+
+  .cal-disp-mes-titulo {
+    font-size: 1.25rem;
+  }
+
+  .cal-disp-dia-semana-label {
+    font-size: 0.7rem;
+  }
+
+  .cal-disp-dia {
+    padding: 0.25rem;
+  }
+
+  .cal-disp-dia-numero {
+    font-size: 0.9rem;
+  }
+
+  .cal-disp-badge-hoy,
+  .cal-disp-badge-turnos {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.25rem;
+  }
+
+  .panel-dia-container {
+    max-width: 100%;
+  }
+
+  .panel-dia-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .modal-agregar-mult-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-agregar-mult-lista {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+
+  .modal-copiar-tipo {
+    flex-direction: column;
+  }
+}
+
+/* Scrollbar personalizado */
+.panel-dia-horarios::-webkit-scrollbar,
+.modal-agregar-mult::-webkit-scrollbar,
+.modal-copiar::-webkit-scrollbar,
+.modal-copiar-dias-lista::-webkit-scrollbar,
+.modal-agregar-mult-lista::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.panel-dia-horarios::-webkit-scrollbar-track,
+.modal-agregar-mult::-webkit-scrollbar-track,
+.modal-copiar::-webkit-scrollbar-track,
+.modal-copiar-dias-lista::-webkit-scrollbar-track,
+.modal-agregar-mult-lista::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border-radius: 4px;
+}
+
+.panel-dia-horarios::-webkit-scrollbar-thumb,
+.modal-agregar-mult::-webkit-scrollbar-thumb,
+.modal-copiar::-webkit-scrollbar-thumb,
+.modal-copiar-dias-lista::-webkit-scrollbar-thumb,
+.modal-agregar-mult-lista::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.panel-dia-horarios::-webkit-scrollbar-thumb:hover,
+.modal-agregar-mult::-webkit-scrollbar-thumb:hover,
+.modal-copiar::-webkit-scrollbar-thumb:hover,
+.modal-copiar-dias-lista::-webkit-scrollbar-thumb:hover,
+.modal-agregar-mult-lista::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ========================================
+   DÍAS SIN PLANTILLA - AGREGAR AL ARCHIVO CalendarioDisponibilidad.css
+   ======================================== */
+
+/* Punto de leyenda para días sin plantilla */
+.cal-disp-dot.sin-plantilla {
+  background: #ef4444;
+  opacity: 0.6;
+}
+
+/* Estilo para días sin plantilla configurada */
+.cal-disp-dia.sin-plantilla {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--bg-primary),
+    var(--bg-primary) 5px,
+    rgba(239, 68, 68, 0.05) 5px,
+    rgba(239, 68, 68, 0.05) 10px
+  );
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.cal-disp-dia.sin-plantilla:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.cal-disp-dia.sin-plantilla .cal-disp-dia-numero {
+  color: var(--text-disabled);
+}
+
+/* Icono de "sin horarios" */
+.cal-disp-sin-horarios {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  color: #ef4444;
+  opacity: 0.6;
+}
+
+.cal-disp-sin-horarios svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Tooltip al pasar el mouse (opcional) */
+.cal-disp-dia.sin-plantilla::after {
+  content: 'Sin horarios';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 100;
+}
+
+.cal-disp-dia.sin-plantilla:hover::after {
+  opacity: 1;
+}
+
+/* Estado especial: día de hoy sin plantilla */
+.cal-disp-dia.hoy.sin-plantilla {
+  border-color: rgba(239, 68, 68, 0.5);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(99, 102, 241, 0.05),
+    rgba(99, 102, 241, 0.05) 5px,
+    rgba(239, 68, 68, 0.05) 5px,
+    rgba(239, 68, 68, 0.05) 10px
+  );
+}
+
+/* Info adicional en el panel cuando no hay horarios */
+.panel-dia-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+
+.panel-dia-empty svg {
+  width: 64px;
+  height: 64px;
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+.panel-dia-empty p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panel-dia-empty small {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  max-width: 300px;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+  .cal-disp-sin-horarios {
+    width: 12px;
+    height: 12px;
+    bottom: 2px;
+    right: 2px;
+  }
+
+  .cal-disp-dia.sin-plantilla::after {
+    display: none; /* Ocultar tooltip en móvil */
+  }
+}
+
+/* Info box en modal editar */
+.modal-editar-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.modal-editar-info svg {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.modal-editar-info span {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ========================================
+   SPINNER DEL MES - AGREGAR AL FINAL
+   ======================================== */
+
+/* Wrapper para posicionar el overlay */
+.cal-disp-dias-grid-wrapper {
+  position: relative;
+  min-height: 400px;
+}
+
+/* Overlay que cubre el grid mientras carga */
+.cal-disp-dias-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 12px;
+  z-index: 100;
+  animation: fadeIn 0.2s;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .cal-disp-dias-loading-overlay {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.cal-disp-spinner-mes {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.cal-disp-dias-loading-overlay p {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Desactivar interacción mientras carga */
+.cal-disp-dias-grid.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Desactivar botones de navegación mientras carga */
+.cal-disp-nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cal-disp-nav-btn:disabled:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border);
+  transform: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

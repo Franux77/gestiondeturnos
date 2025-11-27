@@ -1,0 +1,117 @@
+Listado de rutas de carpetas para el volumen FRANCO F
+El n£mero de serie del volumen es 5C42-6190
+D:.
+³   estructura.txt
+³   
+ÃÄÄÄfrontend
+³   ³   eslint.config.js
+³   ³   index.html
+³   ³   README.md
+³   ³   vite.config.js
+³   ³   .gitignore
+³   ³   package.json
+³   ³   package-lock.json
+³   ³   .env
+³   ³   
+³   ÃÄÄÄpublic
+³   ³       vite.svg
+³   ³       
+³   ÃÄÄÄsrc
+³   ³   ³   App.css
+³   ³   ³   App.jsx
+³   ³   ³   index.css
+³   ³   ³   main.jsx
+³   ³   ³   supabaseClient.js
+³   ³   ³   
+³   ³   ÃÄÄÄassets
+³   ³   ³       react.svg
+³   ³   ³       
+³   ³   ÃÄÄÄservices
+³   ³   ³       emailService.js
+³   ³   ³       turnosService.js
+³   ³   ³       adminService.js
+³   ³   ³       authService.js
+³   ³   ³       
+³   ³   ÃÄÄÄutils
+³   ³   ³       helpers.js
+³   ³   ³       constants.js
+³   ³   ³       
+³   ³   ÃÄÄÄcomponents
+³   ³   ³   ³   Hero.jsx
+³   ³   ³   ³   SeleccionProfesional.jsx
+³   ³   ³   ³   Calendario.jsx
+³   ³   ³   ³   HorariosDisponibles.jsx
+³   ³   ³   ³   FormularioTurno.jsx
+³   ³   ³   ³   ModalConfirmacion.jsx
+³   ³   ³   ³   Footer.jsx
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄadmin
+³   ³   ³           DashboardAdmin.jsx
+³   ³   ³           LoginAdmin.jsx
+³   ³   ³           NavbarAdmin.jsx
+³   ³   ³           TurnoCard.jsx
+³   ³   ³           TurnosHoy.jsx
+³   ³   ³           ProximosTurnos.jsx
+³   ³   ³           EstadisticasCard.jsx
+³   ³   ³           CalendarioAdmin.jsx
+³   ³   ³           GestionProfesionales.jsx
+³   ³   ³           Configuracion.jsx
+³   ³   ³           TurnosLista.jsx
+³   ³   ³           FiltrosTurnos.jsx
+³   ³   ³           TablaTurnos.jsx
+³   ³   ³           ModalEditarTurno.jsx
+³   ³   ³           ModalProfesional.jsx
+³   ³   ³           CardProfesional.jsx
+³   ³   ³           GestionBloqueos.jsx
+³   ³   ³           ModalBloqueo.jsx
+³   ³   ³           EstadisticasAvanzadas.jsx
+³   ³   ³           ModalHorarioPersonalizado.jsx
+³   ³   ³           CalendarioDIsponibilidad.jsx
+³   ³   ³           PanelDiaDisponibilidad.jsx
+³   ³   ³           ModalEditarHorario.jsx
+³   ³   ³           ModalAgregarMultiples.jsx
+³   ³   ³           ModalCopiarDias.jsx
+³   ³   ³           
+³   ³   ÃÄÄÄpages
+³   ³   ³       Home.jsx
+³   ³   ³       AdminPanel.jsx
+³   ³   ³       
+³   ³   ÀÄÄÄstyles
+³   ³       ³   variables.css
+³   ³       ³   Profesionales.css
+³   ³       ³   Hero.css
+³   ³       ³   Calendario.css
+³   ³       ³   Formulario.css
+³   ³       ³   Modal.css
+³   ³       ³   Footer.css
+³   ³       ³   
+³   ³       ÀÄÄÄadmin
+³   ³               LoginAdmin.css
+³   ³               DashboardAdmin.css
+³   ³               NavbarAdmin.css
+³   ³               TurnoCard.css
+³   ³               Configuracion.css
+³   ³               CalendarioAdmin.css
+³   ³               TurnosLista.css
+³   ³               GestionProfesionales.css
+³   ³               GestionBloqueos.css
+³   ³               EstadisticasAvanzadas.css
+³   ³               CalendarioDisponibilidad.css
+³   ³               
+³   ÀÄÄÄdist
+³       ³   vite.svg
+³       ³   index.html
+³       ³   
+³       ÀÄÄÄassets
+³               index-DnHJ_5AI.css
+³               index-OZj8qjT3.js
+³               
+ÀÄÄÄbackend
+    ³   package.json
+    ³   package-lock.json
+    ³   .env
+    ³   server.js
+    ³   
+    ÀÄÄÄroutes
+            email.js
+            

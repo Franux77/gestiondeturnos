@@ -1,0 +1,697 @@
+/* ================================
+   ESTADÍSTICAS AVANZADAS
+   src/styles/admin/EstadisticasAvanzadas.css
+   ================================ */
+
+.stats-avanzadas-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header */
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-info-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.icono-stats {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  flex-shrink: 0;
+}
+
+.icono-stats svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.header-info-stats h1 {
+  font-size: 1.875rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.header-info-stats p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.btn-refrescar-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-refrescar-stats:hover {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border-color: #6366f1;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-refrescar-stats svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Métricas principales */
+.metricas-principales {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.metrica-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.metrica-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.metrica-card.grande {
+  grid-column: span 1;
+}
+
+.metrica-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.metrica-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.metrica-icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metrica-icono.asistencia {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.metrica-icono.total {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.metrica-icono.warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.metrica-icono svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.metrica-valor {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.metrica-valor.grande {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.metrica-subtitulo {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.metrica-desglose {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.desglose-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.desglose-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.desglose-item.confirmados .desglose-dot {
+  background: #10b981;
+}
+
+.desglose-item.cancelados .desglose-dot {
+  background: #ef4444;
+}
+
+.desglose-item.no-asistio .desglose-dot {
+  background: #64748b;
+}
+
+/* Secciones */
+.stats-seccion {
+  margin-bottom: 3rem;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.stats-seccion h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.seccion-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.seccion-titulo svg {
+  width: 28px;
+  height: 28px;
+  color: #6366f1;
+  flex-shrink: 0;
+}
+
+/* Clientes */
+.clientes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.cliente-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cliente-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.cliente-posicion {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a3e635, #84cc16);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.cliente-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.cliente-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cliente-avatar svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-secondary);
+}
+
+.cliente-detalles {
+  min-width: 0;
+  flex: 1;
+}
+
+.cliente-nombre {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cliente-email {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cliente-turnos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+  flex-shrink: 0;
+}
+
+.turnos-numero {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.turnos-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Horarios pico */
+.horarios-pico-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.horario-pico-item {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.horario-pico-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.horario-hora {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.horario-cantidad {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.horario-barra {
+  height: 8px;
+  background: var(--bg-primary);
+  border-radius: 9999px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.horario-barra-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #a3e635, #84cc16);
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.horario-badge-top {
+  position: absolute;
+  top: -10px;
+  right: 1rem;
+  padding: 0.375rem 0.75rem;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+  white-space: nowrap;
+}
+
+/* Profesionales stats */
+.profesionales-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.profesional-stats-card {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profesional-stats-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.profesional-stats-card h4 {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prof-stats-numero {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.prof-stats-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.prof-stats-detalles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.prof-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.prof-stat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.prof-stat-item.confirmados .prof-stat-dot {
+  background: #10b981;
+}
+
+.prof-stat-item.cancelados .prof-stat-dot {
+  background: #ef4444;
+}
+
+.prof-stat-item.no-asistio .prof-stat-dot {
+  background: #64748b;
+}
+
+.prof-tasa-exito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.prof-tasa-exito span {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.prof-tasa-exito strong {
+  font-size: 1.25rem;
+  color: #10b981;
+}
+
+/* Loading / Error */
+.stats-loading,
+.stats-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.stats-loading p,
+.stats-error p {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+}
+
+.stats-error button {
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stats-error button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .metricas-principales {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-avanzadas-container {
+    padding: 1rem;
+  }
+
+  .stats-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-info-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .icono-stats {
+    width: 48px;
+    height: 48px;
+  }
+
+  .icono-stats svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header-info-stats h1 {
+    font-size: 1.5rem;
+  }
+
+  .btn-refrescar-stats {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .metricas-principales {
+    grid-template-columns: 1fr;
+  }
+
+  .metrica-card.grande {
+    grid-column: span 1;
+  }
+
+  .metrica-valor {
+    font-size: 2rem;
+  }
+
+  .metrica-valor.grande {
+    font-size: 2.5rem;
+  }
+
+  .clientes-grid,
+  .profesionales-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cliente-card {
+    flex-wrap: wrap;
+  }
+
+  .cliente-turnos {
+    border-left: none;
+    border-top: 2px solid var(--border);
+    padding-left: 0;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-avanzadas-container {
+    padding: 0.75rem;
+  }
+
+  .stats-seccion h2,
+  .seccion-titulo {
+    font-size: 1.25rem;
+  }
+
+  .seccion-titulo svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .metrica-card {
+    padding: 1.25rem;
+  }
+
+  .metrica-valor {
+    font-size: 1.75rem;
+  }
+
+  .metrica-valor.grande {
+    font-size: 2rem;
+  }
+
+  .cliente-card {
+    padding: 1rem;
+  }
+
+  .cliente-posicion {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  .cliente-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cliente-avatar svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .horario-pico-item {
+    padding: 1rem;
+  }
+
+  .horario-hora {
+    font-size: 1rem;
+  }
+
+  .profesional-stats-card {
+    padding: 1.25rem;
+  }
+
+  .prof-stats-numero {
+    font-size: 2rem;
+  }
+}

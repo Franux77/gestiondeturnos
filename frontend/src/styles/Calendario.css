@@ -1,0 +1,644 @@
+/* ================================
+   SECCIÓN CALENDARIO
+   ================================ */
+
+.calendario-section {
+  padding: 6rem 2rem;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+/* ================================
+   MENSAJE DE SELECCIONAR PROFESIONAL
+   ================================ */
+
+.mensaje-seleccionar {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border);
+}
+
+.mensaje-seleccionar svg {
+  width: 60px;
+  height: 60px;
+  color: var(--text-tertiary);
+  margin-bottom: 1rem;
+}
+
+.mensaje-seleccionar p {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ================================
+   WRAPPER DEL CALENDARIO
+   ================================ */
+
+.calendario-wrapper {
+  max-width: 700px;
+  margin: 3rem auto 0;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: 0 10px 40px var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* ================================
+   HEADER CON NAVEGACIÓN
+   ================================ */
+
+.calendario-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.mes-actual {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: capitalize;
+  flex: 1;
+  text-align: center;
+}
+
+.mes-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  color: var(--text-primary);
+}
+
+.mes-nav-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.mes-nav-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ================================
+   DÍAS DE LA SEMANA
+   ================================ */
+
+.dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.dia-semana-label {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================================
+   GRID DE DÍAS
+   ================================ */
+
+.dias-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.dia-vacio {
+  aspect-ratio: 1;
+}
+
+.dia-btn {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  border: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition);
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* Día disponible */
+.dia-btn.disponible {
+  border-color: var(--primary);
+  background: var(--bg-primary);
+}
+
+.dia-btn.disponible:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+  border-color: var(--primary);
+}
+
+/* Día seleccionado */
+.dia-btn.seleccionado {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 8px 20px rgba(132, 204, 22, 0.4);
+  transform: scale(1.05);
+}
+
+.dia-btn.seleccionado:hover {
+  transform: scale(1.08);
+}
+
+/* Día de hoy */
+.dia-btn.hoy:not(.seleccionado) {
+  border-color: var(--accent);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+/* Día deshabilitado */
+.dia-btn.deshabilitado {
+  background: var(--bg-tertiary);
+  border-color: var(--border);
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.dia-btn.deshabilitado:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Número del día */
+.dia-numero {
+  font-size: 1.125rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+/* Badge "Hoy" */
+.dia-badge {
+  position: absolute;
+  bottom: 4px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+}
+
+/* Check icon */
+.check-icon {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: checkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+}
+
+.check-icon svg {
+  width: 12px;
+  height: 12px;
+  color: var(--primary-dark);
+}
+
+/* Mobile: check aún más pequeño */
+@media (max-width: 768px) {
+  .check-icon {
+    width: 16px;
+    height: 16px;
+    top: 1px;
+    right: 1px;
+  }
+  
+  .check-icon svg {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@keyframes checkPop {
+  0% {
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ================================
+   LEYENDA
+   ================================ */
+
+.calendario-leyenda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border);
+}
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.leyenda-color {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--border);
+}
+
+.leyenda-color.disponible {
+  background: var(--bg-primary);
+  border-color: var(--primary);
+}
+
+.leyenda-color.seleccionado {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.leyenda-color.deshabilitado {
+  background: var(--bg-tertiary);
+  opacity: 0.5;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+  .calendario-section {
+    padding: 4rem 1rem;
+  }
+
+  .calendario-wrapper {
+    padding: 1.5rem;
+  }
+
+  .mes-actual {
+    font-size: 1.25rem;
+  }
+
+  .mes-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dias-semana {
+    gap: 0.25rem;
+  }
+
+  .dia-semana-label {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+  }
+
+  .dias-grid {
+    gap: 0.25rem;
+  }
+
+  .dia-numero {
+    font-size: 1rem;
+  }
+
+  .dia-badge {
+    font-size: 0.5rem;
+  }
+
+  .calendario-leyenda {
+    gap: 1rem;
+    /* flex-direction: center; */
+  }
+}
+
+/* ================================
+   ANIMACIONES
+   ================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendario-wrapper {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* ================================
+   SECCIÓN HORARIOS
+   ================================ */
+
+.horarios-section {
+  padding: 6rem 2rem;
+  background: var(--bg-secondary);
+}
+
+.horarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 3rem auto 0;
+}
+
+.horario-btn {
+  background: var(--bg-primary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.horario-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(132, 204, 22, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.horario-btn:hover::before {
+  left: 100%;
+}
+
+.horario-btn:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(132, 204, 22, 0.2);
+}
+
+.horario-btn.seleccionado {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-color: var(--primary);
+  color: white;
+  box-shadow: 0 12px 24px rgba(132, 204, 22, 0.4);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.horario-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.horario-btn.seleccionado .horario-icon {
+  background: white;
+}
+
+.horario-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--primary);
+}
+
+.horario-btn.seleccionado .horario-icon svg {
+  color: var(--primary-dark);
+}
+
+.horario-texto {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.horario-btn.seleccionado .horario-texto {
+  color: white;
+}
+
+.horario-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: checkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.horario-check svg {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-dark);
+}
+
+.empty-horarios {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--border);
+  max-width: 500px;
+  margin: 3rem auto 0;
+}
+
+.empty-horarios svg {
+  width: 80px;
+  height: 80px;
+  color: var(--text-tertiary);
+  margin-bottom: 1.5rem;
+}
+
+.empty-horarios h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-horarios p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .horarios-section {
+    padding: 4rem 1rem;
+  }
+
+  .horarios-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .horario-btn {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .horario-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .horario-texto {
+    font-size: 1.125rem;
+  }
+}
+
+/* ================================
+   SPINNER DEL MES
+   ================================ */
+
+/* Wrapper para posicionar el overlay */
+.dias-grid-wrapper {
+  position: relative;
+  min-height: 300px;
+  margin-bottom: 2rem;
+}
+
+/* Overlay que cubre el grid mientras carga */
+.dias-loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: var(--radius-lg);
+  z-index: 100;
+  animation: fadeIn 0.2s;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .dias-loading-overlay {
+    background: rgba(0, 0, 0, 0.85);
+  }
+}
+
+.spinner-mes {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.dias-loading-overlay p {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Desactivar interacción mientras carga */
+.dias-grid.loading {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Desactivar botones de navegación mientras carga */
+.mes-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mes-nav-btn:disabled:hover {
+  background: var(--bg-primary);
+  border-color: var(--border);
+  color: var(--text-primary);
+  transform: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 768px) {
+  .dias-grid-wrapper {
+    min-height: 250px;
+  }
+
+  .spinner-mes {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+
+  .dias-loading-overlay p {
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,126 @@
+/* ================================
+   VARIABLES DE DISEÑO
+   Verde Limón + Modo Oscuro
+   ================================ */
+
+:root {
+  /* Colores principales - Verde Limón */
+  --primary: #84cc16;        /* Verde lima brillante */
+  --primary-dark: #65a30d;   /* Verde lima oscuro */
+  --primary-light: #bef264;  /* Verde lima claro */
+  
+  /* Acentos */
+  --accent: #fbbf24;         /* Amarillo dorado */
+  --accent-dark: #f59e0b;    /* Naranja dorado */
+  
+  /* Neutros - Modo Claro */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
+  
+  --border: #e5e7eb;
+  --shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Estados */
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  
+  /* Fuentes */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+  
+  /* Espaciados */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Bordes */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Transiciones */
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================
+   MODO OSCURO
+   ================================ */
+[data-theme="dark"] {
+  --primary: #a3e635;        /* Verde lima más brillante para dark */
+  --primary-dark: #84cc16;
+  --primary-light: #d9f99d;
+  
+  --bg-primary: #0f172a;     /* Azul oscuro profundo */
+  --bg-secondary: #1e293b;   /* Azul oscuro medio */
+  --bg-tertiary: #334155;    /* Azul gris */
+  
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #64748b;
+  
+  --border: #334155;
+  --shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* ================================
+   ESTILOS GLOBALES BASE
+   ================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-secondary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+button {
+  font-family: var(--font-secondary);
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+input, textarea, select {
+  font-family: var(--font-secondary);
+  transition: var(--transition);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}

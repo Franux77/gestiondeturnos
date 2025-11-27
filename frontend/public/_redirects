@@ -1,0 +1,4 @@
+# Redirects para React Router en Netlify
+# Este archivo debe ir en /public/_redirects
+
+/*    /index.html   200
