@@ -276,25 +276,28 @@
 }
 
 /* ================================
-   MOBILE MENU
+   MOBILE MENU - SIN ESPACIO
    ================================ */
 
 .navbar-menu.mobile {
   display: none;
   position: fixed;
-  top: 73px;
   left: 0;
   right: 0;
   width: 100%;
-  height: calc(100vh - 73px);
   background: var(--bg-primary);
-  border-top: 1px solid var(--border);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 0;
   flex-direction: column;
   z-index: 101;
   animation: slideDown 0.25s ease-out;
   overflow-y: auto;
+  max-height: calc(100vh - var(--navbar-height, 73px));
+}
+
+/* Usar JavaScript para calcular la posición */
+.navbar-admin ~ * .navbar-menu.mobile {
+  top: var(--navbar-height, 73px);
 }
 
 @keyframes slideDown {
@@ -352,10 +355,8 @@
 .navbar-overlay {
   display: none;
   position: fixed;
-  top: 73px;
   left: 0;
   width: 100%;
-  height: calc(100vh - 73px);
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   animation: fadeIn 0.25s ease-out;
@@ -533,10 +534,6 @@ body.menu-open {
     width: 32px;
     height: 32px;
   }
-
-  .navbar-menu.mobile {
-    width: 280px;
-  }
 }
 
 @media (max-width: 360px) {
@@ -546,9 +543,5 @@ body.menu-open {
 
   .navbar-title h1 {
     font-size: 0.875rem;
-  }
-
-  .navbar-menu.mobile {
-    width: 240px;
   }
 }

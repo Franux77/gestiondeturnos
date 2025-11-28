@@ -1,10 +1,39 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { logout, obtenerSesion } from '../../services/authService'
 import '../../styles/admin/NavbarAdmin.css'
 
 function NavbarAdmin({ vistaActiva, onCambiarVista }) {
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const navbarRef = useRef(null)
   const session = obtenerSesion()
+
+  // Ajustar posición del menú móvil
+  useEffect(() => {
+    const adjustMenuPosition = () => {
+      if (navbarRef.current) {
+        const navbarHeight = navbarRef.current.offsetHeight
+        const mobileMenu = document.querySelector('.navbar-menu.mobile')
+        const overlay = document.querySelector('.navbar-overlay')
+        
+        if (mobileMenu) {
+          mobileMenu.style.top = `${navbarHeight}px`
+          mobileMenu.style.height = `calc(100vh - ${navbarHeight}px)`
+        }
+        
+        if (overlay) {
+          overlay.style.top = `${navbarHeight}px`
+          overlay.style.height = `calc(100vh - ${navbarHeight}px)`
+        }
+      }
+    }
+
+    adjustMenuPosition()
+    window.addEventListener('resize', adjustMenuPosition)
+    
+    return () => {
+      window.removeEventListener('resize', adjustMenuPosition)
+    }
+  }, [])
 
   // Controlar el scroll del body cuando se abre/cierra el menú
   useEffect(() => {
@@ -14,7 +43,6 @@ function NavbarAdmin({ vistaActiva, onCambiarVista }) {
       document.body.classList.remove('menu-open')
     }
     
-    // Cleanup al desmontar
     return () => {
       document.body.classList.remove('menu-open')
     }
@@ -101,7 +129,7 @@ function NavbarAdmin({ vistaActiva, onCambiarVista }) {
   ]
 
   return (
-    <nav className="navbar-admin">
+    <nav className="navbar-admin" ref={navbarRef}>
       <div className="navbar-container">
         {/* Logo y Título */}
         <div className="navbar-brand">
