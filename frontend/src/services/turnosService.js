@@ -3,7 +3,13 @@ import { obtenerAhoraArgentina, obtenerFechaHoyArgentina } from '../utils/helper
 import { enviarEmailConfirmacion, enviarEmailNotificacionAdmin } from './emailService'
 
 // ============================================
-// OBTENER HORARIOS DISPONIBLES (NUEVA LÓGICA CORREGIDA)
+// CONFIGURACIÓN DE TIEMPO
+// ============================================
+const MARGEN_ANTICIPACION = 30 // minutos antes del turno para poder reservar
+const TIEMPO_OCULTAR_TURNO = 180 // minutos (3 horas) antes de ocultar turno no reservado
+
+// ============================================
+// OBTENER HORARIOS DISPONIBLES (MEJORADA)
 // ============================================
 export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
   try {
@@ -25,7 +31,7 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
 
     // 2️⃣ Obtener día de la semana
     const fechaObj = new Date(fecha + 'T00:00:00')
-    const diaSemana = fechaObj.getDay() // 0-6
+    const diaSemana = fechaObj.getDay()
 
     // 3️⃣ Obtener plantilla del día de la semana
     const { data: plantilla } = await supabase
@@ -43,8 +49,6 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
       return { data: [], error: null }
     }
 
-    console.log('📋 Plantilla base:', plantilla.length, 'horarios')
-
     // 4️⃣ Obtener modificaciones específicas de esta fecha
     const { data: modificaciones } = await supabase
       .from('disponibilidad_horarios')
@@ -53,74 +57,57 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
       .eq('fecha', fecha)
       .order('hora')
 
-    console.log('🔧 Modificaciones del día:', modificaciones?.length || 0)
-
-    // 5️⃣ Crear mapa de modificaciones por hora
+    // 5️⃣ Construir lista combinando plantilla + modificaciones
     const modificacionesMap = new Map()
     modificaciones?.forEach(m => {
       const hora = m.hora.substring(0, 5)
       modificacionesMap.set(hora, m)
     })
 
-    // 6️⃣ Construir lista final combinando plantilla + modificaciones
     let horariosDisponibles = []
 
-    // Agregar horarios de plantilla (filtrando desactivados)
     plantilla.forEach(p => {
       const hora = p.hora.substring(0, 5)
       const mod = modificacionesMap.get(hora)
       
-      // Si hay modificación que lo desactiva, NO agregarlo
-      if (mod && !mod.activo) {
-        console.log(`   ⛔ Omitiendo ${hora} (desactivado manualmente)`)
-        return
-      }
+      if (mod && !mod.activo) return
       
       horariosDisponibles.push(p.hora)
     })
 
-    // Agregar horarios personalizados ACTIVOS que NO están en plantilla
     modificaciones?.forEach(m => {
       if (m.es_personalizado && m.activo) {
         const hora = m.hora.substring(0, 5)
         const yaExiste = plantilla.some(p => p.hora.substring(0, 5) === hora)
         
         if (!yaExiste) {
-          console.log(`   ✅ Agregando ${hora} (personalizado)`)
           horariosDisponibles.push(m.hora)
         }
       }
     })
 
-    // Ordenar
     horariosDisponibles.sort()
 
-    console.log('📊 Horarios después de modificaciones:', horariosDisponibles.length)
-
-    // 7️⃣ Filtrar horarios pasados si es hoy (CON ZONA HORARIA ARGENTINA)
+    // 6️⃣ Filtrar horarios pasados si es hoy
     const hoy = obtenerFechaHoyArgentina()
     if (fecha === hoy) {
       const ahora = obtenerAhoraArgentina()
-      const margenMinutos = 30
 
       horariosDisponibles = horariosDisponibles.filter(horario => {
         const [hora, minuto] = horario.split(':').map(Number)
         const horarioDate = new Date(ahora)
         horarioDate.setHours(hora, minuto, 0, 0)
 
-        const tiempoHasta = (horarioDate - ahora) / (1000 * 60)
+        const minutosHasta = (horarioDate - ahora) / (1000 * 60)
         
-        console.log(`   ⏰ ${horario}: ${tiempoHasta.toFixed(0)}min hasta turno`)
-        
-        return tiempoHasta > margenMinutos
+        // ⭐ NUEVO: Ocultar turnos si faltan menos de 3 horas (180 min)
+        return minutosHasta > TIEMPO_OCULTAR_TURNO
       })
 
-      console.log('📊 Horarios después de filtrar pasados:', horariosDisponibles.length)
-    } else {
-      console.log('📅 No es hoy, no se filtran horarios pasados')
+      console.log(`📊 Horarios después de filtrar por tiempo (>${TIEMPO_OCULTAR_TURNO}min):`, horariosDisponibles.length)
     }
 
-    // 8️⃣ Obtener turnos ocupados
+    // 7️⃣ Obtener turnos ocupados
     const { data: turnosOcupados } = await supabase
       .from('turnos')
       .select('hora_inicio')
@@ -130,7 +117,7 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
 
     const horasOcupadas = new Set(turnosOcupados?.map(t => t.hora_inicio) || [])
 
-    // 9️⃣ Verificar bloqueos parciales
+    // 8️⃣ Verificar bloqueos parciales
     const { data: bloqueosRango } = await supabase
       .from('bloqueos')
       .select('*')
@@ -151,7 +138,7 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
       })
     })
 
-    // 🔟 Filtrar ocupados y bloqueados
+    // 9️⃣ Filtrar ocupados y bloqueados
     const horariosFinal = horariosDisponibles.filter(h => 
       !horasOcupadas.has(h) && !horasBloqueadas.has(h)
     )
@@ -170,7 +157,7 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
 // ============================================
 export const tieneTurnosDisponibles = async (profesionalId, fecha) => {
   try {
-    // Verificar bloqueo completo
+    // 1️⃣ Verificar bloqueo completo
     const { data: bloqueos } = await supabase
       .from('bloqueos')
       .select('*')
@@ -181,7 +168,7 @@ export const tieneTurnosDisponibles = async (profesionalId, fecha) => {
 
     if (bloqueos && bloqueos.length > 0) return false
 
-    // Verificar si tiene plantilla
+    // 2️⃣ Verificar si tiene plantilla
     const fechaObj = new Date(fecha + 'T00:00:00')
     const diaSemana = fechaObj.getDay()
 
@@ -195,7 +182,12 @@ export const tieneTurnosDisponibles = async (profesionalId, fecha) => {
       .eq('activo', true)
       .limit(1)
 
-    return plantilla && plantilla.length > 0
+    if (!plantilla || plantilla.length === 0) return false
+
+    // 3️⃣ ⭐ NUEVO: Verificar si realmente hay horarios disponibles
+    const { data: horarios } = await obtenerHorariosDisponibles(profesionalId, fecha)
+    
+    return horarios && horarios.length > 0
   } catch (error) {
     console.error('Error verificando disponibilidad:', error)
     return false
@@ -260,7 +252,7 @@ export const crearTurno = async (turnoData) => {
       }
     }
     
-    // Validar que no sea un horario pasado (CON ZONA HORARIA ARGENTINA)
+    // Validar que no sea un horario pasado
     const ahora = obtenerAhoraArgentina()
     const fechaHoraTurno = new Date(`${turnoData.fecha}T${turnoData.hora_inicio}`)
     
@@ -272,10 +264,10 @@ export const crearTurno = async (turnoData) => {
     }
     
     const minutosHasta = (fechaHoraTurno - ahora) / (1000 * 60)
-    if (minutosHasta < 30) {
+    if (minutosHasta < MARGEN_ANTICIPACION) {
       return {
         data: null,
-        error: { message: '❌ Necesitas reservar con al menos 30 minutos de anticipación.' }
+        error: { message: `❌ Necesitas reservar con al menos ${MARGEN_ANTICIPACION} minutos de anticipación.` }
       }
     }
     
@@ -307,14 +299,12 @@ export const crearTurno = async (turnoData) => {
     
     console.log('✅ Turno creado:', data)
     
-    // ⭐ ENVIAR EMAILS DE FORMA ASÍNCRONA (sin bloquear la respuesta)
+    // Enviar emails de forma asíncrona
     if (data) {
-      // Enviar email al cliente
       enviarEmailConfirmacion(data, data.profesionales).catch(err => {
         console.error('⚠️ Error enviando email al cliente:', err)
       })
       
-      // Enviar notificación al admin
       enviarEmailNotificacionAdmin(data, data.profesionales).catch(err => {
         console.error('⚠️ Error enviando notificación al admin:', err)
       })

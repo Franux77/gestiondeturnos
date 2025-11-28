@@ -1,7 +1,10 @@
+// ============================================
+// 1. CALENDARIO.JSX - ACTUALIZADO
+// ============================================
 import { useState, useEffect } from 'react'
 import { obtenerConfiguracion, tieneTurnosDisponibles } from '../services/turnosService'
 import { obtenerFechaHoyArgentina } from '../utils/helpers'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, isBefore, startOfDay, addMonths, subMonths } from 'date-fns'
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, isBefore, startOfDay, addMonths, subMonths } from 'date-fns'
 import { es } from 'date-fns/locale'
 import '../styles/Calendario.css'
 
@@ -37,7 +40,6 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
     }
   }
 
-  // Verificar qué días del mes tienen turnos disponibles
   const verificarDisponibilidadMes = async () => {
     if (!profesionalSeleccionado) return
 
@@ -49,7 +51,6 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
     
     const disponibilidad = {}
     
-    // Verificar cada día (en paralelo para ser más rápido)
     await Promise.all(
       diasDelMes.map(async (fecha) => {
         const fechaStr = format(fecha, 'yyyy-MM-dd')
@@ -63,12 +64,10 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
   }
 
   const parsearDiasHabiles = (diasConfig) => {
-    // Si ya son números: "1,2,3,4,5,6"
     if (/^[\d,\s]+$/.test(diasConfig)) {
       return diasConfig.split(',').map(d => parseInt(d.trim())).filter(d => !isNaN(d))
     }
     
-    // Si son nombres: "lunes,martes,miércoles..."
     const mapaDias = {
       'domingo': 0,
       'lunes': 1,
@@ -99,22 +98,18 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
   const esDiaDisponible = (fecha) => {
     if (!fecha) return false
     
-    // Usar fecha de Argentina
     const hoyStr = obtenerFechaHoyArgentina()
     const hoy = new Date(hoyStr + 'T00:00:00')
     
-    // No permitir días pasados
     if (isBefore(fecha, hoy)) return false
     
-    // Verificar si es día hábil
     const diaSemana = fecha.getDay()
     if (!diasHabiles.includes(diaSemana)) return false
     
-    // Verificar si tiene turnos disponibles
     const fechaStr = format(fecha, 'yyyy-MM-dd')
-    if (diasConTurnos[fechaStr] === false) return false
     
-    return true
+    // ⭐ NUEVO: Solo disponible si tiene turnos Y no están todos pasados/reservados
+    return diasConTurnos[fechaStr] === true
   }
 
   const handleSeleccionarDia = (fecha) => {
@@ -217,9 +212,7 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
             ))}
           </div>
 
-          {/* Wrapper con overlay de loading */}
           <div className="dias-grid-wrapper">
-            {/* Overlay de loading */}
             {loadingMes && (
               <div className="dias-loading-overlay">
                 <div className="spinner-mes"></div>
@@ -227,7 +220,6 @@ function Calendario({ profesionalSeleccionado, onSeleccionarFecha, fechaSeleccio
               </div>
             )}
 
-            {/* Grid de días */}
             <div className={`dias-grid ${loadingMes ? 'loading' : ''}`}>
               {dias.map((fecha, index) => {
                 if (!fecha) {
