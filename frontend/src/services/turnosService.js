@@ -9,7 +9,7 @@ const MARGEN_ANTICIPACION = 30 // minutos antes del turno para poder reservar
 const TIEMPO_OCULTAR_TURNO = 180 // minutos (3 horas) antes de ocultar turno no reservado
 
 // ============================================
-// OBTENER HORARIOS DISPONIBLES (MEJORADA)
+// OBTENER HORARIOS DISPONIBLES (CORREGIDO)
 // ============================================
 export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
   try {
@@ -88,23 +88,30 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
 
     horariosDisponibles.sort()
 
-    // 6️⃣ Filtrar horarios pasados si es hoy
+    // 6️⃣ 🔥 FILTRAR HORARIOS PASADOS (CORREGIDO)
     const hoy = obtenerFechaHoyArgentina()
     if (fecha === hoy) {
       const ahora = obtenerAhoraArgentina()
+      console.log('🕐 Hora actual Argentina:', ahora.toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' }))
 
       horariosDisponibles = horariosDisponibles.filter(horario => {
-        const [hora, minuto] = horario.split(':').map(Number)
-        const horarioDate = new Date(ahora)
-        horarioDate.setHours(hora, minuto, 0, 0)
-
-        const minutosHasta = (horarioDate - ahora) / (1000 * 60)
+        // Extraer hora y minuto del horario (formato: "HH:MM:SS" o "HH:MM")
+        const [hora, minuto] = horario.substring(0, 5).split(':').map(Number)
         
-        // ⭐ NUEVO: Ocultar turnos si faltan menos de 3 horas (180 min)
+        // Crear fecha del turno usando la fecha argentina + hora del turno
+        const turnoFechaHora = new Date(fecha + 'T' + horario.substring(0, 8))
+        
+        // Calcular diferencia en minutos
+        const minutosHasta = (turnoFechaHora - ahora) / (1000 * 60)
+        
+        console.log(`⏰ Horario ${horario}: ${minutosHasta.toFixed(0)} minutos hasta`, 
+                    minutosHasta > TIEMPO_OCULTAR_TURNO ? '✅ Mostrar' : '❌ Ocultar')
+        
+        // Mostrar solo si faltan MÁS de TIEMPO_OCULTAR_TURNO minutos
         return minutosHasta > TIEMPO_OCULTAR_TURNO
       })
 
-      console.log(`📊 Horarios después de filtrar por tiempo (>${TIEMPO_OCULTAR_TURNO}min):`, horariosDisponibles.length)
+      console.log(`📊 Horarios después de filtrar (>${TIEMPO_OCULTAR_TURNO}min):`, horariosDisponibles.length)
     }
 
     // 7️⃣ Obtener turnos ocupados
@@ -143,7 +150,7 @@ export const obtenerHorariosDisponibles = async (profesionalId, fecha) => {
       !horasOcupadas.has(h) && !horasBloqueadas.has(h)
     )
 
-    console.log('✅ Horarios disponibles finales:', horariosFinal.length)
+    console.log('✅ Horarios disponibles finales:', horariosFinal.length, horariosFinal)
 
     return { data: horariosFinal, error: null }
   } catch (error) {
@@ -184,7 +191,7 @@ export const tieneTurnosDisponibles = async (profesionalId, fecha) => {
 
     if (!plantilla || plantilla.length === 0) return false
 
-    // 3️⃣ ⭐ NUEVO: Verificar si realmente hay horarios disponibles
+    // 3️⃣ Verificar si realmente hay horarios disponibles
     const { data: horarios } = await obtenerHorariosDisponibles(profesionalId, fecha)
     
     return horarios && horarios.length > 0
@@ -195,7 +202,7 @@ export const tieneTurnosDisponibles = async (profesionalId, fecha) => {
 }
 
 // ============================================
-// RESTO DE FUNCIONES
+// RESTO DE FUNCIONES (SIN CAMBIOS)
 // ============================================
 export const obtenerProfesionales = async () => {
   try {

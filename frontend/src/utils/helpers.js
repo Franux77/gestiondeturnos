@@ -2,21 +2,34 @@
 // FECHAS Y ZONA HORARIA ARGENTINA
 // ================================
 
-// Obtener fecha/hora actual en Argentina (UTC-3)
+/**
+ * Obtener fecha/hora actual en Argentina (UTC-3)
+ * MÉTODO CORRECTO: Usa toLocaleString con timeZone
+ */
 export const obtenerAhoraArgentina = () => {
-  const ahora = new Date()
-  // Convertir a hora de Argentina (UTC-3)
-  const offsetArgentina = -3 * 60 // -3 horas en minutos
-  const offsetLocal = ahora.getTimezoneOffset() // diferencia en minutos
-  const diferencia = offsetArgentina - offsetLocal
-  
-  return new Date(ahora.getTime() + diferencia * 60 * 1000)
+  // Obtener fecha/hora actual en formato ISO de Argentina
+  const fechaHoraArgentina = new Date().toLocaleString('en-US', {
+    timeZone: 'America/Argentina/Buenos_Aires',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  })
+
+  // Convertir "11/27/2024, 20:45:30" a objeto Date
+  return new Date(fechaHoraArgentina)
 }
 
 // Obtener fecha de hoy en formato YYYY-MM-DD (Argentina)
 export const obtenerFechaHoyArgentina = () => {
   const ahora = obtenerAhoraArgentina()
-  return ahora.toISOString().split('T')[0]
+  const año = ahora.getFullYear()
+  const mes = String(ahora.getMonth() + 1).padStart(2, '0')
+  const dia = String(ahora.getDate()).padStart(2, '0')
+  return `${año}-${mes}-${dia}`
 }
 
 // Verificar si una fecha es hoy (en Argentina)
@@ -41,15 +54,20 @@ export const formatearFecha = (fecha) => {
     weekday: 'long', 
     year: 'numeric', 
     month: 'long', 
-    day: 'numeric' 
+    day: 'numeric',
+    timeZone: 'America/Argentina/Buenos_Aires'
   }
-  return date.toLocaleDateString('es-AR', opciones)
+  const fechaFormateada = date.toLocaleDateString('es-AR', opciones)
+  // Capitalizar primera letra
+  return fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1)
 }
 
 // Formatear fecha corta
 export const formatearFechaCorta = (fecha) => {
   const date = new Date(fecha + 'T00:00:00')
-  return date.toLocaleDateString('es-AR')
+  return date.toLocaleDateString('es-AR', {
+    timeZone: 'America/Argentina/Buenos_Aires'
+  })
 }
 
 // Formatear hora (eliminar segundos)
@@ -151,4 +169,27 @@ export const scrollSuave = (elementId) => {
       block: 'start' 
     })
   }
+}
+
+// ================================
+// UTILIDADES ADICIONALES DE TURNOS
+// ================================
+
+// Calcular minutos entre ahora y un turno
+export const calcularMinutosHastaTurno = (fecha, hora) => {
+  const ahora = obtenerAhoraArgentina()
+  const turnoFecha = new Date(`${fecha}T${hora}`)
+  return Math.floor((turnoFecha - ahora) / (1000 * 60))
+}
+
+// Verificar si un turno está próximo (menos de X minutos)
+export const esTurnoProximo = (fecha, hora, minutosLimite = 30) => {
+  const minutos = calcularMinutosHastaTurno(fecha, hora)
+  return minutos > 0 && minutos <= minutosLimite
+}
+
+// Verificar si un turno ya pasó
+export const esTurnoPasado = (fecha, hora) => {
+  const minutos = calcularMinutosHastaTurno(fecha, hora)
+  return minutos < 0
 }

@@ -331,7 +331,7 @@
 }
 
 /* ================================
-   SCROLL INDICATOR
+   SCROLL INDICATOR (MEJORADO)
    ================================ */
 
 .scroll-indicator {
@@ -346,6 +346,7 @@
   color: var(--text-tertiary);
   font-size: 0.875rem;
   animation: bounce 2s infinite;
+  z-index: 5; /* 🔥 Por debajo del contenido */
 }
 
 .scroll-mouse {
@@ -420,6 +421,7 @@
   .hero-stats {
     justify-content: center;
     gap: 1rem;
+    padding-bottom: 2rem; /* 🔥 Más espacio para evitar overlap */
   }
 
   .stat-number {
@@ -444,5 +446,17 @@
   .orb-1, .orb-2, .orb-3 {
     width: 300px;
     height: 300px;
+  }
+
+  /* 🔥 Ocultar scroll indicator en móvil */
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* 🔥 Mostrar scroll indicator solo en pantallas grandes */
+@media (min-width: 769px) and (min-height: 700px) {
+  .scroll-indicator {
+    display: flex;
   }
 }
